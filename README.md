@@ -14,7 +14,7 @@
 ## 檔案結構
 
 ```
-site/
+train_ticket_buyer_web/       ← 這個資料夾就是 repo 根目錄
   index.html          繁體中文首頁（訂票攻略）
   privacy.html        繁體中文隱私權政策
   en/index.html       English
@@ -54,15 +54,16 @@ AFF_TOUR = "..."   # 聯盟追蹤網址（行程）
 
 改完跑 `python3 _gen.py` 重新產生。
 
-> 擴充裡也有一份同樣的連結，在 `extension/content.js` 的 `LINKS` 常數。兩邊要一起換。
+> 擴充裡也有一份同樣的連結，在 `D:\train_ticket_buyer\extension\content.js` 的 `LINKS` 常數。兩邊要一起換。
 
 ---
 
 ## 部署到 GitHub Pages
 
+詳細步驟看 `部署步驟.md`。摘要：
+
 1. 在 GitHub 建一個 repo（例如 `alishan-booking`）
-2. 把 `site/` 裡的**所有 `.html` 和 `.css`** 上傳到 repo 根目錄
-   （`_build.py` / `_content_*.py` / `_gen.py` 可以一起放，不影響網站）
+2. 這個資料夾本身就是 git 倉庫，直接 `git remote add origin ...` 然後 push
 3. repo → **Settings → Pages**
 4. Source 選 **Deploy from a branch**，Branch 選 `main`、資料夾選 `/ (root)`
 5. 存檔，等一兩分鐘
