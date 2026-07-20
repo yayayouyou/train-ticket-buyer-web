@@ -5,3 +5,6 @@ __pycache__/
 # 系統檔
 .DS_Store
 Thumbs.db
+
+# 個人部署筆記（含本機路徑，不公開）
+部署步驟.md
