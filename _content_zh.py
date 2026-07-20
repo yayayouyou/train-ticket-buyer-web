@@ -7,7 +7,7 @@ HERO = f"""
   <h1>阿里山林鐵訂票，<br>其實有一套規則</h1>
   <p>什麼時候開賣、為什麼一定要買遊樂區套票、票種怎麼配才不會被退 —— 這頁把官方分散在各處的規則整理成一份看得懂的說明，並提供一個免費的 Chrome 擴充幫你把表單填好。</p>
   <a class="cta" href="{STORE}" target="_blank" rel="noopener noreferrer">安裝免費擴充</a>
-  <p class="cta-note">完全免費 · 不收集個人資料 · 不連線任何外部伺服器 · 不會幫你辨識驗證碼</p>
+  <p class="cta-note">完全免費 · 不收集個人資料 · 不連線任何外部伺服器</p>
 </div></div>
 """
 
