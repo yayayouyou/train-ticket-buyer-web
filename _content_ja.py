@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-from _build import STORE, FEEDBK, DONATE, AFF_STAY, AFF_TOUR
+from _build import STORE, FEEDBK, DONATE, aff_links
+_A = aff_links("ja")
+AFF_TOUR, AFF_STAY1, AFF_STAY2 = _A["tour"], _A["stay1"], _A["stay2"]
 
 HERO = f"""
 <div class="hero"><div class="wrap">
@@ -110,8 +112,9 @@ BODY = f"""
 <h2>7. 旅の準備</h2>
 <div class="disclose">以下は<strong>提携リンク</strong>です。ご予約いただくと当サイトに少額の紹介料が入る場合がありますが、お客様の料金は変わりません。各サイトで直接検索していただいても構いません。</div>
 <div class="links">
-  <a href="{AFF_STAY}" target="_blank" rel="noopener noreferrer"><b>阿里山・嘉義の宿泊</b><span>乗車日の空室を確認できます</span></a>
-  <a href="{AFF_TOUR}" target="_blank" rel="noopener noreferrer"><b>阿里山 日帰りツアー</b><span>日の出、神木、トレイル</span></a>
+  <a href="{AFF_STAY1}" target="_blank" rel="noopener noreferrer"><b>阿里山神木賓館</b><span>阿里山駅から約 400 m、降りてすぐ</span></a>
+  <a href="{AFF_STAY2}" target="_blank" rel="noopener noreferrer"><b>禾楓別墅（Ho Fong Villa Hotel）</b><span>同じく阿里山エリア内。空室と料金を確認できます</span></a>
+  <a href="{AFF_TOUR}" target="_blank" rel="noopener noreferrer"><b>阿里山 日帰りツアー・現地体験</b><span>日の出、神木、トレイル</span></a>
 </div>
 <h3 style="margin-top:26px">お役に立ちましたか？</h3>
 <div class="links">

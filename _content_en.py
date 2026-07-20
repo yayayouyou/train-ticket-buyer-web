@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-from _build import STORE, FEEDBK, DONATE, AFF_STAY, AFF_TOUR
+from _build import STORE, FEEDBK, DONATE, aff_links
+_A = aff_links("en")
+AFF_TOUR, AFF_STAY1, AFF_STAY2 = _A["tour"], _A["stay1"], _A["stay2"]
 
 HERO = f"""
 <div class="hero"><div class="wrap">
@@ -110,7 +112,8 @@ BODY = f"""
 <h2>7. Planning the rest of your trip</h2>
 <div class="disclose">The links below are <strong>partner links</strong>. If you book through them this site may earn a small commission, at no extra cost to you. You are equally welcome to search these platforms directly.</div>
 <div class="links">
-  <a href="{AFF_STAY}" target="_blank" rel="noopener noreferrer"><b>Stays in Alishan / Chiayi</b><span>See what is available for your travel dates</span></a>
+  <a href="{AFF_STAY1}" target="_blank" rel="noopener noreferrer"><b>Alishan Shermuh Hotel</b><span>About 400 m from Alishan Station</span></a>
+  <a href="{AFF_STAY2}" target="_blank" rel="noopener noreferrer"><b>Ho Fong Villa Hotel</b><span>Also inside the Alishan area — check rooms and rates</span></a>
   <a href="{AFF_TOUR}" target="_blank" rel="noopener noreferrer"><b>Alishan day tours</b><span>Sunrise, sacred trees, hiking trails</span></a>
 </div>
 <h3 style="margin-top:26px">Was this useful?</h3>

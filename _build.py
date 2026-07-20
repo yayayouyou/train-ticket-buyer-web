@@ -7,8 +7,42 @@ import os, io
 STORE  = "https://chromewebstore.google.com/"   # TODO: 上架後換成擴充實際網址
 FEEDBK = "https://forms.gle/"                   # TODO: 換成 Google 表單
 DONATE = "https://ko-fi.com/"                   # TODO: 換成 Ko-fi / Buy Me a Coffee
-AFF_STAY = "https://www.booking.com/"           # TODO: 換成聯盟追蹤網址（住宿）
-AFF_TOUR = "https://www.kkday.com/"             # TODO: 換成聯盟追蹤網址（行程）
+
+# ===== 聯盟連結（Trip.com）=====
+# Allianceid 與 SID 是分潤追蹤參數，缺任一個都不會計佣。
+#
+# trip_sub1 用來分辨流量來源：網站一律 "web"，擴充一律 "ext"。
+#   這是之後判斷「擴充到底值不值得繼續維護」的唯一依據，不要留空。
+#
+# ⚠ 不要用 Trip.com 的短網址（trip.com/t/xxxx）——實測會把 trip_sub1 洗成空值，
+#   分不出流量來源。一律用下面組出來的完整網址。
+AFF_ID   = "9409583"
+AFF_SID  = "325182901"
+AFF_SUB1 = "web"          # 擴充端在 extension/content.js 用 "ext"
+
+# 各語言導到對應的 Trip.com 站別與幣別 ——
+# 否則日文使用者會看到繁體中文頁面與美金報價，轉換率會很難看。
+TRIP_HOST = {"zh": "tw.trip.com", "en": "www.trip.com", "ja": "jp.trip.com"}
+TRIP_CURR = {"zh": "TWD",         "en": "USD",          "ja": "JPY"}
+
+# 商品路徑（從 Trip.com 聯盟後台取得的三條連結展開而來）
+P_TOUR  = "/things-to-do/list?searchkey=5152&searchtype=1"
+P_STAY1 = "/hotels/chiayi-county-hotel-detail-1229576/alishan-shermuh-international-tourist-hotel/"
+P_STAY2 = "/hotels/chiayi-county-hotel-detail-1303945/ho-fong-villa-hotel/"
+SUB3_TOUR = "D18798999"
+SUB3_STAY = "D18799279"
+
+def aff(lang, path, sub3, sub1=None):
+    sep = "&" if "?" in path else "?"
+    return (f"https://{TRIP_HOST[lang]}{path}{sep}"
+            f"Allianceid={AFF_ID}&SID={AFF_SID}"
+            f"&trip_sub1={sub1 or AFF_SUB1}&trip_sub3={sub3}"
+            f"&curr={TRIP_CURR[lang]}")
+
+def aff_links(lang, sub1=None):
+    return {"tour":  aff(lang, P_TOUR,  SUB3_TOUR, sub1),
+            "stay1": aff(lang, P_STAY1, SUB3_STAY, sub1),
+            "stay2": aff(lang, P_STAY2, SUB3_STAY, sub1)}
 
 LANGS = ["zh", "en", "ja"]
 LABEL = {"zh": "繁體中文", "en": "English", "ja": "日本語"}

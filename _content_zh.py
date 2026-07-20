@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """繁體中文內容。資料來源：站方售票說明 + 訂票系統實測（2026-07）。"""
-from _build import STORE, FEEDBK, DONATE, AFF_STAY, AFF_TOUR
+from _build import STORE, FEEDBK, DONATE, aff_links
+_A = aff_links("zh")
+AFF_TOUR, AFF_STAY1, AFF_STAY2 = _A["tour"], _A["stay1"], _A["stay2"]
 
 HERO = f"""
 <div class="hero"><div class="wrap">
@@ -116,8 +118,9 @@ BODY = f"""
 <h2>七、順便安排行程</h2>
 <div class="disclose">以下為<strong>合作連結</strong>：透過這些連結完成預訂，本站可能獲得少量分潤，對你的價格沒有影響。你也可以直接搜尋這些平台。</div>
 <div class="links">
-  <a href="{AFF_STAY}" target="_blank" rel="noopener noreferrer"><b>阿里山 / 嘉義住宿</b><span>看看你的乘車日當天還有哪些房型</span></a>
-  <a href="{AFF_TOUR}" target="_blank" rel="noopener noreferrer"><b>阿里山一日遊 · 包車</b><span>日出、神木、步道行程</span></a>
+  <a href="{AFF_STAY1}" target="_blank" rel="noopener noreferrer"><b>阿里山神木賓館</b><span>距阿里山車站約 400 公尺，下車就到</span></a>
+  <a href="{AFF_STAY2}" target="_blank" rel="noopener noreferrer"><b>禾楓別墅</b><span>同在阿里山園區內，查看當晚空房與房價</span></a>
+  <a href="{AFF_TOUR}" target="_blank" rel="noopener noreferrer"><b>阿里山一日遊 · 當地體驗</b><span>日出、神木、步道行程</span></a>
 </div>
 <h3 style="margin-top:26px">覺得有幫助嗎？</h3>
 <div class="links">
