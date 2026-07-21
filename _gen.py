@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys, io, os
 sys.path.insert(0, '.')
-from _build import shell, write, SITE, donate_page, promo_json
+from _build import shell, write, SITE, donate_page, feedback_page, promo_json
 import _content_zh as ZH, _content_en as EN, _content_ja as JA
 
 C = {"zh": ZH, "en": EN, "ja": JA}
@@ -34,6 +34,9 @@ for lang in ("zh", "en", "ja"):
 
 # 擴充指向的贊助轉址頁（換收款平台只需改 _build.py 的 DONATE）
 write(os.path.join("donate", "index.html"), donate_page())
+
+# 商店「支援網址」指向的支援頁（換表單只需改 _build.py 的 FEEDBK）
+write(os.path.join("feedback", "index.html"), feedback_page())
 
 # 擴充完成頁的遠端促銷資料（擴充 PROMO_URL 指向本站的 promo.json）
 write("promo.json", promo_json())

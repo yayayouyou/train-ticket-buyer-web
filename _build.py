@@ -168,6 +168,55 @@ def promo_json():
     return json.dumps(data, ensure_ascii=False, indent=2) + "\n"
 
 
+def feedback_page():
+    """/feedback/ 支援頁 —— 商店「支援網址」指向這裡。
+
+    做成「有內容的落地頁」而非即時轉址：商店後台會去打這個網址驗證，
+    純靜態頁穩定回 200 就會過（forms.gle 這類短網址/轉址常被判「連不上」）。
+    表單網址集中在 FEEDBK 一處，日後換表單只改那一行重跑產生器即可。
+    """
+    return f"""<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>支援與意見回饋 / Support &amp; feedback / サポート</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header><div class="wrap">
+  <div class="logo">森</div>
+  <div class="site">阿里山林鐵訂票小幫手</div>
+  <nav><a href="../">繁體中文</a><a href="../en/">English</a><a href="../ja/">日本語</a></nav>
+</div></header>
+<main><div class="wrap" style="max-width:680px">
+<section>
+  <h2>需要協助嗎？</h2>
+  <p>阿里山林鐵訂票小幫手的問題回報、功能建議與任何意見，都歡迎透過下面的表單告訴我，我會盡快處理。</p>
+  <p style="margin:20px 0"><a class="cta" href="{FEEDBK}" target="_blank" rel="noopener noreferrer">前往意見回饋表單</a></p>
+
+  <h3 style="margin-top:36px">Need help?</h3>
+  <p>For bug reports, suggestions and any feedback about the Alishan Railway Booking Helper, please use the form below.</p>
+  <p style="margin:20px 0"><a class="cta" href="{FEEDBK}" target="_blank" rel="noopener noreferrer">Open the feedback form</a></p>
+
+  <h3 style="margin-top:36px">お困りですか？</h3>
+  <p>阿里山森林鉄道 予約アシスタントの不具合報告・ご提案・ご意見は、下のフォームからお寄せください。</p>
+  <p style="margin:20px 0"><a class="cta" href="{FEEDBK}" target="_blank" rel="noopener noreferrer">フィードバックフォームを開く</a></p>
+</section>
+</div></main>
+<footer><div class="wrap">
+  <div class="row">
+    <a href="../">訂票攻略</a>
+    <a href="../privacy.html">隱私權政策</a>
+    <a href="{FEEDBK}" target="_blank" rel="noopener noreferrer">意見回饋</a>
+  </div>
+  <div>本站為個人製作的非官方說明，與阿里山林業鐵路及文化資產管理處無關。訂票請以官方網站為準。</div>
+</div></footer>
+</body>
+</html>
+"""
+
+
 def write(path, text):
     os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
     with io.open(path, "w", encoding="utf-8") as f:
