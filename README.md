@@ -21,6 +21,7 @@ train_ticket_buyer_web/       ← 這個資料夾就是 repo 根目錄
   en/privacy.html
   ja/index.html       日本語
   ja/privacy.html
+  donate/index.html   贊助轉址頁（擴充指這裡，再轉到收款平台）
   style.css           共用樣式（零外部資源）
 
   _build.py           產生器：共用外殼與導覽
@@ -40,21 +41,37 @@ python3 _gen.py
 
 ---
 
-## 上架前一定要換的網址
-
-全部集中在 `_build.py` 最上面：
+## 設定集中在 `_build.py` 最上面
 
 ```python
-STORE    = "..."   # 擴充上架後的商店網址
-FEEDBK   = "..."   # Google 表單
-DONATE   = "..."   # Ko-fi / Buy Me a Coffee
-AFF_STAY = "..."   # 聯盟追蹤網址（住宿）
-AFF_TOUR = "..."   # 聯盟追蹤網址（行程）
+STORE  = "..."   # ⚠ 還是 placeholder，擴充上架後要換成商店網址
+FEEDBK = "..."   # Google 表單 ✔
+DONATE = "..."   # Ko-fi ✔（改這行就等於改了 /donate 轉址目標）
+
+AFF_ID, AFF_SID = "...", "..."   # Trip.com 聯盟，與擴充端相同
+AFF_SUB1 = "web"                 # 流量來源；擴充端用 "ext"，不要留空
 ```
 
 改完跑 `python3 _gen.py` 重新產生。
 
-> 擴充專案裡也有一份同樣的連結（`extension/content.js` 的 `LINKS` 常數）。兩邊要一起換。
+**聯盟連結兩個地雷：**
+
+- `trip_sub1` 不要留空 —— 它是分辨「擴充 vs 網站」流量的唯一依據。
+- 不要用 Trip.com 短網址（`trip.com/t/xxxx`），實測會把 `trip_sub1` 洗成空值。
+
+> 擴充專案裡也有一份同樣的連結（`extension/content.js` 的 `LINKS` 常數）。
+> Allianceid / SID 兩邊要一致，只有 `trip_sub1` 不同。
+
+---
+
+## `/donate` 轉址頁
+
+擴充的贊助連結指向本站的 `/donate/`，再由它轉到 Ko-fi。這樣日後換收款平台
+只要改 `_build.py` 的 `DONATE` 重跑產生器，**擴充不用改、不必重送商店審核**。
+
+> GitHub Pages 是純靜態的，發不出真正的 302，所以 `/donate/` 用的是
+> meta refresh + JS 轉址（HTTP 狀態碼是 200）。對上述目的效果相同。
+> 若哪天需要真正的 302，得把站台搬到 Cloudflare Pages 或 Netlify。
 
 ---
 

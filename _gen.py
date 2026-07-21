@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys, io, os
 sys.path.insert(0, '.')
-from _build import shell, write, SITE
+from _build import shell, write, SITE, donate_page
 import _content_zh as ZH, _content_en as EN, _content_ja as JA
 
 C = {"zh": ZH, "en": EN, "ja": JA}
@@ -31,4 +31,7 @@ for lang in ("zh", "en", "ja"):
     pt, pdesc = PTITLE[lang]
     write(os.path.join(d, "privacy.html"),
           shell(lang, depth, pt, pdesc, m.PRIVACY))
+
+# 擴充指向的贊助轉址頁（換收款平台只需改 _build.py 的 DONATE）
+write(os.path.join("donate", "index.html"), donate_page())
 print("完成")

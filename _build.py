@@ -5,8 +5,11 @@ import os, io
 
 # ===== 上架前要換掉的網址 =====
 STORE  = "https://chromewebstore.google.com/"   # TODO: 上架後換成擴充實際網址
-FEEDBK = "https://forms.gle/"                   # TODO: 換成 Google 表單
-DONATE = "https://ko-fi.com/"                   # TODO: 換成 Ko-fi / Buy Me a Coffee
+FEEDBK = "https://forms.gle/dLrvJ3eKrvngnvsg6"  # Google 表單（與擴充端同一份）
+
+# 贊助頁。網站自己的連結直接指這裡；擴充則指向本站的 /donate/ 轉址頁，
+# 這樣日後換收款平台只要改這一行重跑產生器，擴充不必改、不必重送商店審核。
+DONATE = "https://ko-fi.com/traingogogo"
 
 # ===== 聯盟連結（Trip.com）=====
 # Allianceid 與 SID 是分潤追蹤參數，缺任一個都不會計佣。
@@ -94,8 +97,39 @@ def shell(lang, depth, title, desc, body):
 </html>
 """
 
+def donate_page():
+    """/donate/ 轉址頁 —— 擴充指向這裡，再轉到當前的收款平台。
+
+    GitHub Pages 是純靜態的，發不出真正的 302，所以用 meta refresh + JS。
+    對「換平台不用動擴充」這個目的來說效果一樣，差別只在 HTTP 狀態碼是 200。
+    noscript 使用者會看到頁面上的按鈕，仍然可以手動點過去。
+    """
+    return f"""<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url={DONATE}">
+<title>前往贊助頁 / Redirecting to the tip jar</title>
+<link rel="canonical" href="{DONATE}">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<main class="wrap" style="padding:64px 0;text-align:center">
+  <p>正在前往贊助頁…<br>Redirecting to the tip jar…<br>支援ページに移動しています…</p>
+  <p style="margin-top:24px">
+    <a class="cta" href="{DONATE}" rel="noopener noreferrer">沒有自動跳轉？點這裡 / Continue / 続ける</a>
+  </p>
+</main>
+<script>location.replace({DONATE!r});</script>
+</body>
+</html>
+"""
+
+
 def write(path, text):
     os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
     with io.open(path, "w", encoding="utf-8") as f:
         f.write(text)
-    print(f"  {path}  ({len(text)} bytes)")
+    print(f"  {path}  ({len(text)} 字元)")   # 字元數，不是 bytes：中文一字 3 bytes
