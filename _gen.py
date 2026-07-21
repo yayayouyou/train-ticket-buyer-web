@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys, io, os
 sys.path.insert(0, '.')
-from _build import shell, write, SITE, donate_page
+from _build import shell, write, SITE, donate_page, promo_json
 import _content_zh as ZH, _content_en as EN, _content_ja as JA
 
 C = {"zh": ZH, "en": EN, "ja": JA}
@@ -14,9 +14,9 @@ TITLE = {
          "阿里山森林鉄道のネット予約の全ルール：いつ発売されるか、遊園地パッケージの仕組み、券種と料金。無料の Chrome 拡張機能もご紹介。"),
 }
 PTITLE = {
-  "zh": ("隱私權政策 — 阿里山林鐵訂票小幫手", "本擴充不收集任何個人資料，也不連線任何外部伺服器。"),
-  "en": ("Privacy policy — Alishan Railway Booking Helper", "This extension collects no personal data and contacts no external server."),
-  "ja": ("プライバシーポリシー — 阿里山森林鉄道 予約アシスタント", "本拡張機能は個人情報を収集せず、外部サーバーに接続しません。"),
+  "zh": ("隱私權政策 — 阿里山林鐵訂票小幫手", "本擴充不上傳你的任何個人資料、不追蹤、不含分析或廣告；輸入的資料只存在你的瀏覽器。"),
+  "en": ("Privacy policy — Alishan Railway Booking Helper", "This extension never uploads your personal data, does not track you, and contains no analytics or ads."),
+  "ja": ("プライバシーポリシー — 阿里山森林鉄道 予約アシスタント", "本拡張機能は個人情報をアップロードせず、追跡もアナリティクスも広告もありません。"),
 }
 DIRS = {"zh": ".", "en": "en", "ja": "ja"}
 
@@ -34,4 +34,7 @@ for lang in ("zh", "en", "ja"):
 
 # 擴充指向的贊助轉址頁（換收款平台只需改 _build.py 的 DONATE）
 write(os.path.join("donate", "index.html"), donate_page())
+
+# 擴充完成頁的遠端促銷資料（擴充 PROMO_URL 指向本站的 promo.json）
+write("promo.json", promo_json())
 print("完成")

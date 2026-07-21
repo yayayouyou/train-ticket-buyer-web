@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy policy — Alishan Railway Booking Helper</title>
-<meta name="description" content="This extension collects no personal data and contacts no external server.">
+<meta name="description" content="This extension never uploads your personal data, does not track you, and contains no analytics or ads.">
 <link rel="stylesheet" href="../style.css">
 </head>
 <body>
@@ -19,49 +19,41 @@
 <h2>Privacy policy</h2>
 <p style="color:var(--muted);font-size:14px">Last updated: July 2026</p>
 
-<div class="tip"><strong>Short version: this extension collects none of your data and sends nothing to any external server.</strong></div>
+<div class="tip"><strong>Core principle: this extension never uploads any of your personal data, does not track you, and contains no analytics or ads. What you type stays in your own browser.</strong></div>
 
-<h3>What we collect</h3>
-<p><strong>Nothing.</strong> The extension collects, stores and transmits no personal data.</p>
+<h3>Personal data (passenger details)</h3>
+<p>To auto-fill the passenger fields on the official booking site, the extension offers a "passenger details" feature (ID/passport number, phone, email). It is <strong>optional</strong> and designed security-first:</p>
 <ul>
-<li>It never asks for or stores ID numbers, passport numbers, phone numbers or email addresses</li>
-<li>It does not track your browsing</li>
-<li>It uses no analytics or tracking services</li>
-<li>It loads no external images, fonts or scripts</li>
+<li><strong>Default "this session only":</strong> kept in browser memory (<code>chrome.storage.session</code>) — <strong>never written to disk, and cleared when you close the browser</strong>.</li>
+<li><strong>Optional "remember (encrypted)":</strong> encrypted with a password you set via PBKDF2-SHA256 + AES-GCM and stored locally as <strong>ciphertext only</strong>; neither the plaintext nor the password is stored, and you unlock it with your password each time you open the browser.</li>
+<li>Saved passenger details are <strong>never shown back</strong> in the settings screen — you can only re-enter or delete them.</li>
+<li>This data is <strong>never uploaded</strong>; it is used solely to fill in your own fields on the official booking page.</li>
 </ul>
 
 <h3>Where your settings live</h3>
-<p>Your booking preferences (line, date, ticket counts, interface language and so on) are stored only in <strong>your own browser's local storage</strong> (<code>chrome.storage.local</code>). This data never leaves your device and is deleted when you remove the extension.</p>
+<p>Your booking preferences (line, date, ticket counts, interface language, reminders and so on) are stored only in <strong>your own browser's local storage</strong> (<code>chrome.storage.local</code>). This data never leaves your device and is deleted when you remove the extension.</p>
 
 <h3>Permissions</h3>
 <table>
 <tr><th>Permission</th><th>Why</th></tr>
-<tr><td>storage</td><td>Save your booking preferences locally</td></tr>
-<tr><td>tabs</td><td>The "open booking site" button; switches to an existing tab instead of opening a duplicate</td></tr>
-<tr><td>alarms</td><td>Local reminders for when tickets go on sale</td></tr>
-<tr><td>notifications</td><td>Show the reminder when it fires</td></tr>
-<tr><td>afrts.forest.gov.tw</td><td>Run form-filling only on the official booking site</td></tr>
+<tr><td>storage</td><td>Save your booking preferences and passenger details locally (never sent out)</td></tr>
+<tr><td>alarms, notifications</td><td>Local alarm and notification for on-sale / payment-deadline reminders — no server involved</td></tr>
+<tr><td>afrts.forest.gov.tw</td><td>Run form-filling only on the official booking site; also switches to an already-open booking tab</td></tr>
 </table>
 <p>The extension runs <strong>only on <code>afrts.forest.gov.tw</code></strong> booking pages, never on any other website.</p>
 
 <h3>Captchas</h3>
 <p>This extension contains <strong>no captcha recognition or bypass code whatsoever</strong>. Captchas are always typed by you. The extension only enlarges the image and moves your cursor to the input box.</p>
 
-<h3>External links</h3>
-<p>After a successful booking the extension shows travel <strong>partner links</strong> (accommodation, tours), clearly labelled as such. These links:</p>
-<ul>
-<li>are followed only when <strong>you click them</strong></li>
-<li>never redirect automatically or send background requests</li>
-<li>never overwrite or modify any existing affiliate parameters</li>
-<li>can be dismissed, or disabled entirely with the master switch</li>
-</ul>
-<p>Clicking takes you to a third-party site with its own privacy policy. If you book through these links this site may earn a small commission, at no extra cost to you.</p>
+<h3>Partner links and completion-page promos</h3>
+<p>After a successful booking the extension shows travel <strong>partner links</strong> (accommodation, tours), clearly labelled. They are followed <strong>only when you click them</strong>, never redirect automatically, and never overwrite existing affiliate parameters. If you book through them this site may earn a small commission, <strong>at no extra cost to you</strong>. You can dismiss the panel or disable the whole extension with the master switch.</p>
+<p>The completion page's recommendations may be supplied by <strong>our own website</strong> (a one-way download of the text and images to display). This <strong>sends none of your data and contacts no third party</strong>; when it is not enabled the completion page uses built-in content and makes no external connection at all.</p>
 
 <h3>Data sharing</h3>
-<p>Since we collect no data, there is <strong>no data to share, sell or transfer</strong> to anyone.</p>
+<p>The extension never uploads any of your personal data and is technically incapable of sending it out, so there is <strong>no personal data to share, sell or transfer</strong> to anyone.</p>
 
 <h3>Changes</h3>
-<p>If this policy changes, the date above will be updated. If any future feature requires a network connection, it will be described here before that update ships.</p>
+<p>If this policy changes, the date above will be updated.</p>
 
 <h3>Contact</h3>
 <p>Questions? Use the feedback link in the footer.</p>

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """三語言網站產生器 —— 內容集中管理，避免各語言版本走鐘。
    輸出：index.html / privacy.html / en/*.html / ja/*.html"""
-import os, io
+import os, io, json
 
 # ===== 上架前要換掉的網址 =====
 STORE  = "https://chromewebstore.google.com/"   # TODO: 上架後換成擴充實際網址
@@ -126,6 +126,46 @@ def donate_page():
 </body>
 </html>
 """
+
+
+def promo_json():
+    """完成頁遠端促銷資料 —— 擴充的 PROMO_URL 指向本站的 /promo.json。
+
+    改這裡重跑產生器即可更新擴充完成頁的推薦內容，擴充不必重上架、不必重送商店審核。
+    聯盟連結沿用 aff_links()（trip_sub1=web），三語各一組（缺語言擴充會退回 en→zh）。
+
+    圖片用「相對路徑」（相對於 promo.json 本身），擴充 background 會以 promo.json 的
+    網址為基準解析再轉 data URI —— 所以這裡不必寫死 GitHub 網域，換帳號/改路徑都不用動。
+    請把對應圖片放到本站的 promo/ 目錄（單張 < 400KB，否則擴充會略過該圖只顯示文字）。
+    """
+    L = {lang: aff_links(lang) for lang in LANGS}
+
+    def item(image, key, title, sub):
+        it = {"image": image}
+        for lang in LANGS:
+            it[lang] = {"title": title[lang], "sub": sub[lang], "url": L[lang][key]}
+        return it
+
+    data = {
+        "_note": "由 _build.py 的 promo_json() 產生，勿手改；改內容請改該函式再跑 python _gen.py",
+        "referral": {
+            "zh": "想順便安排行程嗎？透過以下連結購買不會額外加價，純粹是導購 / 合作連結。",
+            "en": "Planning the rest of your trip? Buying through these links costs you nothing extra — they are simply referral links.",
+            "ja": "旅の予定も立てませんか？以下のリンクから購入しても追加料金はかかりません（紹介リンクです）。",
+        },
+        "items": [
+            item("promo/stay-shermuh.jpg", "stay1",
+                 {"zh": "阿里山神木賓館", "en": "Alishan Shermuh Hotel", "ja": "阿里山神木賓館"},
+                 {"zh": "距阿里山車站約 400 公尺", "en": "About 400 m from Alishan Station", "ja": "阿里山駅から約 400 m"}),
+            item("promo/stay-hofong.jpg", "stay2",
+                 {"zh": "禾楓別墅", "en": "Ho-Fong Villa", "ja": "禾楓ヴィラ"},
+                 {"zh": "阿里山鄉，近森林遊樂區", "en": "Near the recreation area, Alishan", "ja": "森林遊楽区の近く（阿里山郷）"}),
+            item("promo/tour-sunrise.jpg", "tour",
+                 {"zh": "阿里山日出・神木行程", "en": "Alishan sunrise & sacred-tree tours", "ja": "阿里山 日の出・神木ツアー"},
+                 {"zh": "當地體驗，多為含接送", "en": "Local experiences, many with transfer", "ja": "送迎付きが多い現地体験"}),
+        ],
+    }
+    return json.dumps(data, ensure_ascii=False, indent=2) + "\n"
 
 
 def write(path, text):
